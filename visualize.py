@@ -4,7 +4,7 @@ import torch
 import numpy as np
 from collections import deque
 import matplotlib.pyplot as plt
-%matplotlib inline
+#%matplotlib inline
 
 from ddpg_agent import Agent
 
