@@ -10,11 +10,11 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 BUFFER_SIZE = int(1e6)  # replay buffer size
-BATCH_SIZE = 128        # minibatch size
+BATCH_SIZE = 128         # minibatch size
 GAMMA = 0.99            # discount factor
 TAU = 1e-3              # for soft update of target parameters
-LR_ACTOR = 1e-3         # learning rate of the actor 
-LR_CRITIC = LR_ACTOR#3e-4        # learning rate of the critic
+LR_ACTOR = 1e-4         # learning rate of the actor 
+LR_CRITIC = 1e-3        # learning rate of the critic
 WEIGHT_DECAY = 0.0001   # L2 weight decay
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -22,7 +22,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class Agent():
     """Interacts with and learns from the environment."""
     
-    def __init__(self, state_size, action_size, random_seed):
+    def __init__(self, state_size, action_size,random_seed,action_high=2,action_low=-2):
         """Initialize an Agent object.
         
         Params
@@ -33,6 +33,8 @@ class Agent():
         """
         self.state_size = state_size
         self.action_size = action_size
+        self.action_high = action_high
+        self.action_low = action_low
         self.seed = random.seed(random_seed)
 
         # Actor Network (w/ Target Network)
@@ -70,7 +72,7 @@ class Agent():
         self.actor_local.train()
         if add_noise:
             action += self.noise.sample()
-        return np.clip(action, -1, 1)
+        return np.clip(action, self.action_low, self.action_high)
 
     def reset(self):
         self.noise.reset()
