@@ -18,3 +18,12 @@ class FCBody(nn.Module):
         for layer in self.layers:
             x = self.gate(layer(x))
         return x
+
+class DummyBody(nn.Module):
+    def __init__(self, state_dim):
+        super(DummyBody, self).__init__()
+        self.feature_dim = state_dim
+
+    def forward(self, x):
+        return x
+

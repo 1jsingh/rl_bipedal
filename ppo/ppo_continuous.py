@@ -9,7 +9,7 @@ from deep_rl import *
 def ppo_continuous(name):
     config = Config()
     log_dir = get_default_log_dir(ppo_continuous.__name__)
-    config.task_fn = lambda: Task(name)
+    config.task_fn = lambda: Task(name,num_envs=8,single_process=False)
     config.eval_env = Task(name, log_dir=log_dir)
 
     config.network_fn = lambda: GaussianActorCriticNet(
@@ -26,6 +26,7 @@ def ppo_continuous(name):
     config.ppo_ratio_clip = 0.2
     config.log_interval = 2048
     config.max_steps = 1e6
+    config.num_workers = 8
     config.state_normalizer = MeanStdNormalizer()
     config.logger = get_logger()
     run_steps(PPOAgent(config))
