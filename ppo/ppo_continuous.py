@@ -6,10 +6,12 @@
 
 from deep_rl import *
 
-def ppo_continuous(name):
+def ppo_continuous(name,num_workers=1):
+
+    single_process = (num_workers==1)
     config = Config()
     log_dir = get_default_log_dir(ppo_continuous.__name__)
-    config.task_fn = lambda: Task(name,num_envs=8,single_process=False)
+    config.task_fn = lambda: Task(name,num_envs=num_workers,single_process=single_process)
     config.eval_env = Task(name, log_dir=log_dir)
 
     config.network_fn = lambda: GaussianActorCriticNet(
@@ -25,8 +27,9 @@ def ppo_continuous(name):
     config.mini_batch_size = 64
     config.ppo_ratio_clip = 0.2
     config.log_interval = 2048
-    config.max_steps = 1e6
-    config.num_workers = 8
+    config.max_steps = 2e5
+    config.num_workers = num_workers
     config.state_normalizer = MeanStdNormalizer()
     config.logger = get_logger()
-    run_steps(PPOAgent(config))
+    agent = run_steps(PPOAgent(config))
+    return agent

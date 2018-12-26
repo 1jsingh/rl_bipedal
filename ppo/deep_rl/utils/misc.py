@@ -38,6 +38,7 @@ def run_steps(agent):
             agent.close()
             break
         agent.step()
+    return agent
 
 def get_time_str():
     return datetime.datetime.now().strftime("%y%m%d-%H%M%S")
