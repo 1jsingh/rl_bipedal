@@ -7,6 +7,22 @@
 from .network_utils import *
 from .network_bodies import *
 
+class ActorCriticNet(nn.Module):
+    def __init__(self, state_dim, action_dim, phi_body, actor_body, critic_body):
+        super(ActorCriticNet, self).__init__()
+        if phi_body is None: phi_body = DummyBody(state_dim)
+        if actor_body is None: actor_body = DummyBody(phi_body.feature_dim)
+        if critic_body is None: critic_body = DummyBody(phi_body.feature_dim)
+        self.phi_body = phi_body
+        self.actor_body = actor_body
+        self.critic_body = critic_body
+        self.fc_action = layer_init(nn.Linear(actor_body.feature_dim, action_dim), 1e-3)
+        self.fc_critic = layer_init(nn.Linear(critic_body.feature_dim, 1), 1e-3)
+
+        self.actor_params = list(self.actor_body.parameters()) + list(self.fc_action.parameters())
+        self.critic_params = list(self.critic_body.parameters()) + list(self.fc_critic.parameters())
+        self.phi_params = list(self.phi_body.parameters())
+        
 class GaussianActorCriticNet(nn.Module, BaseNet):
     def __init__(self,
                  state_dim,
