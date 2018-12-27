@@ -17,17 +17,17 @@ def ppo_continuous(name,num_workers=1):
     config.network_fn = lambda: GaussianActorCriticNet(
         config.state_dim, config.action_dim, actor_body=FCBody(config.state_dim, gate=F.tanh),
         critic_body=FCBody(config.state_dim, gate=F.tanh))
-    config.optimizer_fn = lambda params: torch.optim.Adam(params, 1e-3, eps=1e-5)
+    config.optimizer_fn = lambda params: torch.optim.Adam(params, 3e-4, eps=1e-5)
     config.discount = 0.99
     config.use_gae = True
     config.gae_tau = 0.95
     config.gradient_clip = 0.5
     config.rollout_length = 2048
     config.optimization_epochs = 10
-    config.mini_batch_size = 128
-    config.ppo_ratio_clip = 0.1
+    config.mini_batch_size = 512
+    config.ppo_ratio_clip = 0.2
     config.log_interval = 143360
-    config.max_steps = 1e6
+    config.max_steps = 5e6
     config.num_workers = num_workers
     config.state_normalizer = MeanStdNormalizer()
     config.logger = get_logger()

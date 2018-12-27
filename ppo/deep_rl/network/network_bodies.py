@@ -7,7 +7,7 @@
 from .network_utils import *
 
 class FCBody(nn.Module):
-    def __init__(self, state_dim, hidden_units=(64, 64), gate=F.relu):
+    def __init__(self, state_dim, hidden_units=(128, 128), gate=F.relu):
         super(FCBody, self).__init__()
         dims = (state_dim, ) + hidden_units
         self.layers = nn.ModuleList([layer_init(nn.Linear(dim_in, dim_out)) for dim_in, dim_out in zip(dims[:-1], dims[1:])])
