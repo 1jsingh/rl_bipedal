@@ -1,17 +1,10 @@
-[//]: # (Image References)
+# About
 
-[image1]: https://user-images.githubusercontent.com/10624937/42135608-be87357e-7d12-11e8-8eca-e6d5fabdba6b.gif "Trained Agent"
-
-
-# Actor-Critic Methods
-
-### Instructions
-
-Open `DDPG.ipynb` to see an implementation of DDPG with OpenAI Gym's BipedalWalker environment.
+Solving OpenAI's [Bipedal Walker](https://gym.openai.com/envs/BipedalWalker-v2/) environment using [Proximal Policy Optimization (PPO)](https://arxiv.org/abs/1707.06347) algorithm. For comparison an implementation with [DDPG](https://arxiv.org/abs/1509.02971) algorithm is also provided.
 
 ### Results
 
-![Trained Agent][image1]
+![Trained Agent][images/trained_agent]
 
 
 ## Project Structure
@@ -26,3 +19,7 @@ Open `DDPG.ipynb` to see an implementation of DDPG with OpenAI Gym's BipedalWalk
   - `DDPG.ipynb`: jupyter notebook for training the agent
   - `ddpg_agent.py`: code for the agent model, experience replay and OU noise 
   - `model.py`: actor and critic networks
+  
+### Instructions
+
+Open `ppo/ppo_bipedal.ipynb` to see an implementation of [PPO](https://arxiv.org/abs/1707.06347) with OpenAI Gym's BipedalWalker environment.
