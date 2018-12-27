@@ -4,7 +4,7 @@ Solving OpenAI's [Bipedal Walker](https://gym.openai.com/envs/BipedalWalker-v2/)
 
 ### Results
 
-![Trained Agent][images/trained_agent]
+![Trained Agent](images/trained_agent)
 
 
 ## Project Structure
